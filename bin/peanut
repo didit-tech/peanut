@@ -7,7 +7,6 @@
  */
 
 process.on('uncaughtException', function (err) {
-  console.log(err.stack);
   sys.puts(style.red(err.message));
 });
 
