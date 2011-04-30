@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+/*!
+ * peanut
+ * Copyright(c) 2011 Didit <developers@didit.com>
+ * MIT Licensed
+ */
+
+process.on('uncaughtException', function (err) {
+  console.log(err.stack);
+  sys.puts(style.red(err.message));
+});
+
+require('../lib/runner/app');

@@ -1,0 +1,135 @@
+#header
+  img(src='/images/peanut.png')
+  h3 press "shift + h" for a little help
+    span.reload-message
+      | * please refresh if you don't see your features or lost connection
+  #key
+    .description Key:
+    .successful_step Success
+      .count
+    .failed_step Failed
+      .count
+    .pending_step Pending
+      .count
+    .skipped_step Skipped
+      .count
+    .unimplemented_step Unimplemented
+      .count
+    .description Run by tag:
+    input#tagsAC(type="text", autocomplete="off")
+
+#features
+#steps_to_implement(style="display: none;")
+  .steps
+  .message
+    img(src='/images/peanut_tongue.png')
+    h2 Nothing to implement!
+#failed_steps(style="display: none;")
+  .steps
+  .message
+    img(src='/images/peanut_happy.png')
+    h2 You are currently failure free!
+
+#help
+  h2 Peanut Quickstart
+  ul
+    li (shift + a) - show features/scenarios
+    li (shift + f) - failed steps
+    li (shift + u) - unimplemented steps
+    li (shift + t) - run tagged features/scenarios
+    li (shift + r) - refresh current features/scenarios
+    li (shift + l) - rerun all features
+    hr
+    li (shift + h) - you're looking at it
+
+#templates
+  .feature.
+    <div id='feature' class='%= it.val.class %'>
+      <h2>%= it.val.name %</h2>
+      <div class='info'>
+        % if (!_.isUndefined(it.tag)) { %
+          <div class='tag'>%= it.tag %</div>
+        % } %
+      </div>
+      % _.each(it.val.description, function(description) { %
+        % if (!_.isEmpty(description)) { %
+          <h2 class='descriptionLine'>%= description %</h2>
+        % } %
+      % }); %
+      <br/>
+      % if (!_.isUndefined(it.background)) { %
+        <div id='background'>
+          <h2>Background:</h2>
+          <div id='backgroundSteps'></div>
+        </div>
+      % } %
+      <br/>
+      <div class='scenarios'></div>
+    </div>
+
+  .scenario.
+    <div id='%= it.val.class %' class='scenario'>
+      <h2 class='scenario_name'>%= it.val.name %</h2>
+      % if (!_.isUndefined(it.val.tag)) { %
+        <div class='info'>
+          <div class='tag'>%= it.val.tag %</div>
+          % if (it.val.isOutline) { %
+            <p>(example)</p>
+          % } %
+        </div>
+      % } %
+      % if (it.val.isOutline) { %
+        <div class='examples'></div>
+      % } else { %
+        <div class='steps'></div>
+      % } %
+    </div>
+
+  .step.
+    <div id='%= it.stepId %'>
+      <h2>%= it.val.step + ' ' + it.val.text %</h2>
+      % if (it.val.type === 'table') { %
+        <div class='stepTable'>
+          % if (it.val.tableOrPyString.length) { %
+            % it.val.tableOrPyString[0].forEach(function(c, i) { %
+              <div class='col'>
+                % it.val.tableOrPyString.forEach(function(row) { %
+                  % row.forEach(function(col, ci) { %
+                    % if (i === ci) { %
+                      <h3>%= col %</h3>
+                    % } %
+                  % }); %
+                % }); %
+              </div>
+            % }); %
+          % } %
+        </div>
+      % } %
+      % if (it.val.type === 'pystring') { %
+        <div class='pystring'>
+          % it.val.tableOrPyString.forEach(function(line) { %
+            <h3>%= line %</h3>
+          % }); %
+        </div>
+      % } %
+    </div>
+
+  .step_template.
+    <div id='step_template'>
+      <h2>%= it.val.unimplementedStep +
+        '(/^'+it.val.pattern+'$/, function(step'+it.val.args+') {' %</h2>
+      <h2>&nbsp;&nbsp;step.pending();</h2>
+      <h2>});</h2>
+      </h2>
+    </div>
+
+  .failed_step_error_message.
+    <div id='failed_step_error_message'>
+      % _.each(it.val.errorHeader, function(message) { %
+      <h2>%= message %</h2>
+      % }); %
+      <br/>
+      % _.each(it.val.error, function(error) { %
+      <h2>%= error %</h2>
+      % }); %
+    </div>

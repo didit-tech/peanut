@@ -1,0 +1,20 @@
+{
+    "name": "peanut"
+  , "version": "0.1.0"
+  , "description": "node.js cucumber implementation for the birds"
+  , "keywords": ["testing", "bdd", "tdd", "cucumber"]
+  , "author": "Didit <development@didit.com>"
+  , "dependencies": {
+      "express": "2.3.2",
+      "findit": "0.0.3",
+      "jade": "0.10.5",
+      "optimist": "0.1.9",
+      "socket.io": "0.6.17",
+      "stylus": "0.12.0",
+      "underscore": "1.1.6",
+      "zombie": "0.9.5"
+    }
+  , "bin": { "peanut": "./bin/peanut" }
+  , "engines": { "node": "0.4.x" }
+  , "preferGlobal": true
+}
