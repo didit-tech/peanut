@@ -9,6 +9,7 @@
       "findit": "0.0.3",
       "jade": "0.10.5",
       "optimist": "0.1.9",
+      "should": "0.2.0",
       "socket.io": "0.6.17",
       "stylus": "0.12.0",
       "underscore": "1.1.6",
