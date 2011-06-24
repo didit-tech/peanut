@@ -4,7 +4,7 @@
 
 \n+                       return 'NEWLINE'
 \s+                       /* skip whitespace */
-"\"\"\""(.|\n)+"\"\"\""  return 'PYSTRING'
+"\"\"\""(.|\n)+"\"\"\""   return 'PYSTRING'
 ^"@"(\w+)                 return 'TAGS'
 ^"#".+                    return 'COMMENT'
 ^"Feature:"               return 'FEATURE'
@@ -127,11 +127,11 @@ Whitespace
   ;
 
 Pystring
-	: /* empty */
-	| PYSTRING { 
-			new yy.Pystring(yy.file, ['PYSTRING', @1.first_line, $1]);
-		}
-	;
+  : /* empty */
+  | PYSTRING {
+      new yy.Pystring(yy.file, ['PYSTRING', @1.first_line, $1]);
+    }
+  ;
 
 Line
   : LINE {
