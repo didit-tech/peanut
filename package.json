@@ -15,7 +15,6 @@
       "tobi": "0.2.1"
     }
   , "devDependencies": {
-      "should": "*",
       "sinon": "*"
     }
   , "bin": { "peanut": "./bin/peanut" }

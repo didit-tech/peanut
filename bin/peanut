@@ -6,8 +6,4 @@
  * MIT Licensed
  */
 
-process.on('uncaughtException', function (err) {
-  if (err.message) console.log(err.message);
-});
-
 require('../lib/runner/app');
