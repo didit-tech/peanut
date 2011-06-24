@@ -7,7 +7,7 @@
  */
 
 process.on('uncaughtException', function (err) {
-  sys.puts(style.red(err.message));
+  if (err.message) console.log(err.message);
 });
 
 require('../lib/runner/app');
