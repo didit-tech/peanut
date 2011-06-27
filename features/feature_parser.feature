@@ -6,7 +6,7 @@ Feature: Feature Parser
   Scenario: Simple Feature
     Given the feature file is
     """
-      Feature: Sample Feature
+    Feature: Sample Feature
       In order to do something
       As a role
       I want some functionality

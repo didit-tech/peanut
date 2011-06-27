@@ -5,6 +5,7 @@
 \n+                       return 'NEWLINE'
 \s+                       /* skip whitespace */
 "\"\"\""(.|\n)+"\"\"\""   return 'PYSTRING'
+\|(.|\n)+\|               return 'TABLE'
 ^"@"(\w+)                 return 'TAGS'
 ^"#".+                    return 'COMMENT'
 ^"Feature:"               return 'FEATURE'
@@ -51,6 +52,8 @@ Token
   | Scenario
   | Outline
   | Whitespace
+  | Pystring
+  | Table
   | Line
   | EOF { return yy.EOF(yy.file); }
   ;
@@ -95,23 +98,23 @@ Outline
   ;
 
 Steps
-  : GIVEN LINE NEWLINE Pystring {
+  : GIVEN LINE NEWLINE {
       new yy.Step(yy.file, ['GIVEN', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | WHEN LINE NEWLINE Pystring {
+  | WHEN LINE NEWLINE {
       new yy.Step(yy.file, ['WHEN', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | THEN LINE NEWLINE Pystring {
+  | THEN LINE NEWLINE {
       new yy.Step(yy.file, ['THEN', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | AND LINE NEWLINE Pystring {
+  | AND LINE NEWLINE {
       new yy.Step(yy.file, ['AND', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | BUT LINE NEWLINE Pystring {
+  | BUT LINE NEWLINE {
       new yy.Step(yy.file, ['BUT', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
@@ -130,6 +133,13 @@ Pystring
   : /* empty */
   | PYSTRING {
       new yy.Pystring(yy.file, ['PYSTRING', @1.first_line, $1]);
+    }
+  ;
+
+Table
+  : /* empty */
+  | TABLE {
+      new yy.Table(yy.file, ['TABLE', @1.first_line, $1]);
     }
   ;
 

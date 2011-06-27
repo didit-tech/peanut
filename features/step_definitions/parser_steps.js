@@ -2,16 +2,17 @@ require('should');
 var util = require('util');
 var parser = require("../../lib/parser").parser;
 var nodes = require("../../lib/nodes");
+var _ = require('underscore')._;
 
-Given(/^the feature file is $/, function(step, featureText) {
- this.text = featureText.join("\n");
- step.done();
+Given(/^the feature file is$/, function(step, featureText) {
+  this.text = featureText.join("\n");
+  step.done();
 });
 
 When(/^the file is parsed$/, function(step) {
- parser.yy.file = new nodes.File();
- this.parsedFile = parser.parse(this.text);
- step.done();
+  parser.yy.file = new nodes.File();
+  this.parsedFile = parser.parse(this.text);
+  step.done();
 });
 
 Then(/^the Feature should be named "([^"]*?)"$/, function(step, featureName) {
@@ -25,8 +26,9 @@ Then(/^it should have a Scenario called "([^"]*?)"$/, function(step, scenarioNam
 });
 
 Then(/^it should have the following Steps:$/, function(step, stepNames) {
-  console.log(stepNames.rows_hash())
-  console.log(stepNames.hashes())
-  console.log(stepNames.headers())
-  step.pending();
+  var steps = this.parsedFile.feature.scenarios[0].steps;
+  _(stepNames.hashes()).each(function(step, i) {
+    step['Name'].should.eql(steps[i][0] + ' ' + steps[i][2]);
+  });
+  step.done();
 });

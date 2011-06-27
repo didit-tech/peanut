@@ -16,6 +16,7 @@ body p{margin:15px 0}
 #features,#steps_to_implement,#failed_steps{clear:both;padding:15px 0 10px 10px;}
 #features h2,#steps_to_implement h2,#failed_steps h2{font-size:22px;color:#565656}
 #feature{float:left;margin:10px;padding:10px 20px;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;border:1px solid #898989;background:#e4e4e4;}
+#feature h3{height:16px;white-space:pre}
 #feature h2{color:#2e66f5;padding:15px 0}
 #feature #background h2{font-size:16px}
 #feature #background #backgroundSteps h2{padding:0}
@@ -28,6 +29,7 @@ body p{margin:15px 0}
 #feature .scenarios .scenario h2.scenario_name{color:#333;font-size:20px}
 #feature .scenarios .scenario h2{font-size:16px}
 #feature .scenarios .scenario .steps h2{padding:0}
+#feature .scenarios .scenario .steps .stepTable{display:table}
 #help{width:400px;display:none;color:#fff;}
 #help h2{font-size:20px}
 #help ul{padding:25px 10px;}
