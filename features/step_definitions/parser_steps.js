@@ -1,16 +1,23 @@
-require('should');
+/**
+ * Module dependencies.
+ */
+
 var util = require('util');
 var parser = require("../../lib/parser").parser;
 var nodes = require("../../lib/nodes");
 var _ = require('underscore')._;
 
-Given(/^the Feature description is:$/, function(step, description) {)
+/**
+ * Steps.
+ */
+
+Given(/^the Feature description is:$/, function(step, description) {
   this.description = description.join("\n");
   step.done();
 });
 
 Given(/^the Feature contains$/, function(step, featureText) {
-  this.text = this.description + "\n" + featureText.join("\n");
+  this.text = this.description + featureText.join("\n");
   step.done();
 });
 

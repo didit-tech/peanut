@@ -3,15 +3,15 @@ Feature: Feature Parser
   As a developer
   I want peanut to parse a feature file
 
-  Background: 
+  Background:
     Given the Feature description is:
     """
-      Feature: Sample Feature
+    Feature: Sample Feature
       In order to do something
       As a role
       I want some functionality
     """
-    
+
   Scenario: Simple Feature
     Given the Feature contains
     """
