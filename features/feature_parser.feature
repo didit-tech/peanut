@@ -3,14 +3,18 @@ Feature: Feature Parser
   As a developer
   I want peanut to parse a feature file
 
-  Scenario: Simple Feature
-    Given the feature file is
+  Background: 
+    Given the Feature description is:
     """
       Feature: Sample Feature
       In order to do something
       As a role
       I want some functionality
-
+    """
+    
+  Scenario: Simple Feature
+    Given the Feature contains
+    """
       Scenario: Sample Scenario
         Given some setup
         And some more setup
@@ -23,7 +27,7 @@ Feature: Feature Parser
         But not that result
     """
 
-    When the file is parsed
+    When the Feature is parsed
 
     Then the Feature should be named "Sample Feature"
     And it should have a Scenario called "Sample Scenario"
@@ -40,13 +44,8 @@ Feature: Feature Parser
       | But not that result    |
 
   Scenario: Simple Background
-    Given the feature file is
+    Given the Feature contains
     """
-      Feature: Sample Feature
-      In order to do something
-      As a role
-      I want some functionality
-
       Background:
         Given some background step
         And another background step
@@ -59,7 +58,7 @@ Feature: Feature Parser
         But it shouldn't break
     """
 
-    When the file is parsed
+    When the Feature is parsed
 
     Then it should have a Background
     And the Background should have the following Steps:

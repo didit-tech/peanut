@@ -4,12 +4,17 @@ var parser = require("../../lib/parser").parser;
 var nodes = require("../../lib/nodes");
 var _ = require('underscore')._;
 
-Given(/^the feature file is$/, function(step, featureText) {
-  this.text = featureText.join("\n");
+Given(/^the Feature description is:$/, function(step, description) {)
+  this.description = description.join("\n");
   step.done();
 });
 
-When(/^the file is parsed$/, function(step) {
+Given(/^the Feature contains$/, function(step, featureText) {
+  this.text = this.description + "\n" + featureText.join("\n");
+  step.done();
+});
+
+When(/^the Feature is parsed$/, function(step) {
   parser.yy.file = new nodes.File();
   this.parsedFile = parser.parse(this.text);
   step.done();
