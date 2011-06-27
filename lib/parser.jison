@@ -4,8 +4,8 @@
 
 \n+                       return 'NEWLINE'
 \s+                       /* skip whitespace */
-"\"\"\""(.|\n)+"\"\"\""   return 'PYSTRING'
-\|(.|\n)+\|               return 'TABLE'
+\"\"\"[^\"\"\"]+\"\"\"    return 'PYSTRING'
+\|(.|\n(?=\s*\|))+\|      return 'TABLE'
 ^"@"(\w+)                 return 'TAGS'
 ^"#".+                    return 'COMMENT'
 ^"Feature:"               return 'FEATURE'
