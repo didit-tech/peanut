@@ -28,7 +28,6 @@ Feature: Feature Parser
     """
 
     When the Feature is parsed
-
     Then the Feature should be named "Sample Feature"
     And it should have a Scenario called "Sample Scenario"
     And it should have the following Steps:
@@ -59,7 +58,6 @@ Feature: Feature Parser
     """
 
     When the Feature is parsed
-
     Then it should have a Background
     And the Background should have the following Steps:
       | Name                                      |
@@ -72,3 +70,4 @@ Feature: Feature Parser
       | Then I should have a complete background  |
       | And it should run all the way through     |
       | But it shouldn't break                    |
+      

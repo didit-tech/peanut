@@ -6,18 +6,19 @@ var util = require('util');
 var parser = require("../../lib/parser").parser;
 var nodes = require("../../lib/nodes");
 var _ = require('underscore')._;
+var inspect = require('eyes').inspector({});
 
 /**
  * Steps.
  */
 
 Given(/^the Feature description is:$/, function(step, description) {
-  this.description = description.join("\n");
+  this.description = description;
   step.done();
 });
 
 Given(/^the Feature contains$/, function(step, featureText) {
-  this.text = this.description + featureText.join("\n");
+  this.text = this.description + featureText;
   step.done();
 });
 
@@ -61,3 +62,7 @@ Then(/^the Background should have the following Steps:$/,
     step.done();
   }
 );
+
+Then(/^the first step should have "([^"]*?)" as an argument $/, function(step, argName) {
+  step.pending();
+});

@@ -1,24 +1,28 @@
 %lex
 
+PyDelim           \"\"\"
+AnyBeforePyDelim  (.|\n(?!\s*{PyDelim}))
+AnyBeforeLastPipe (.|\n(?=\s*\|))
+
 %%
 
-\n+                       return 'NEWLINE'
-\s+                       /* skip whitespace */
-\"\"\"[^\"\"\"]+\"\"\"    return 'PYSTRING'
-\|(.|\n(?=\s*\|))+\|      return 'TABLE'
-^"@"(\w+)                 return 'TAGS'
-^"#".+                    return 'COMMENT'
-^"Feature:"               return 'FEATURE'
-^"Background:"            return 'BACKGROUND'
-^"Scenario:"              return 'SCENARIO'
-^"Scenario Outline:"      return 'OUTLINE'
-^"Given"                  return 'GIVEN'
-^"When"                   return 'WHEN'
-^"Then"                   return 'THEN'
-^"And"                    return 'AND'
-^"But"                    return 'BUT'
-(.+)                      return 'LINE'
-<<EOF>>                   return 'EOF'
+\n+                                         return 'NEWLINE'
+\s+                                         /* skip whitespace */
+{PyDelim}{AnyBeforePyDelim}+\n\s*{PyDelim}  return 'PYSTRING'
+\|{AnyBeforeLastPipe}+\|                    return 'TABLE'
+^"@"(\w+)                                   return 'TAGS'
+^"#".+                                      return 'COMMENT'
+^"Feature:"                                 return 'FEATURE'
+^"Background:"                              return 'BACKGROUND'
+^"Scenario:"                                return 'SCENARIO'
+^"Scenario Outline:"                        return 'OUTLINE'
+^"Given"                                    return 'GIVEN'
+^"When"                                     return 'WHEN'
+^"Then"                                     return 'THEN'
+^"And"                                      return 'AND'
+^"But"                                      return 'BUT'
+(.+)                                        return 'LINE'
+<<EOF>>                                     return 'EOF'
 
 /lex
 
@@ -98,23 +102,23 @@ Outline
   ;
 
 Steps
-  : GIVEN LINE NEWLINE {
+  : GIVEN LINE {
       new yy.Step(yy.file, ['GIVEN', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | WHEN LINE NEWLINE {
+  | WHEN LINE {
       new yy.Step(yy.file, ['WHEN', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | THEN LINE NEWLINE {
+  | THEN LINE {
       new yy.Step(yy.file, ['THEN', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | AND LINE NEWLINE {
+  | AND LINE {
       new yy.Step(yy.file, ['AND', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
-  | BUT LINE NEWLINE {
+  | BUT LINE {
       new yy.Step(yy.file, ['BUT', @1.first_line, $1]);
       new yy.Line(yy.file, ['STEP_DESCRIPTION', @2.first_line, $2]);
     }
