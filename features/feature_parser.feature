@@ -137,8 +137,7 @@ Feature: Feature Parser
     When the Feature is parsed
     Then the Scenario should be tagged with "tagged"
 
-  @focus
-  Scenario: With Scenario Outline
+  Scenario Outline: With Scenario Outline
     Given the Feature contains
     """
       Scenario Outline: Curiousity
@@ -153,3 +152,13 @@ Feature: Feature Parser
     """
     When the Feature is parsed
     Then the Scenario Outline should have "2" examples
+    And Example "<example>" "<header>" should be "<val>"
+
+    Examples:
+      | example | header | val   |
+      | 0       | setup  | one   |
+      | 0       | system | two   |
+      | 0       | result | three |
+      | 1       | setup  | four  |
+      | 1       | system | five  |
+      | 1       | result | six   |

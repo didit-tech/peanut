@@ -108,3 +108,8 @@ Then(/^the Scenario Outline should have "([^"]*?)" examples$/, function(step, ex
   this.scenario.examples.length.should.eql(parseInt(exampleCount));
   step.done();
 });
+
+Then(/^Example "([^"]*?)" "([^"]*?)" should be "([^"]*?)"$/, function(step, exampleno, header, val) {
+  this.scenario.examples[parseInt(exampleno)][header].should.eql(val);
+  step.done();
+});
