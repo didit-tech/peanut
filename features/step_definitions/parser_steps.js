@@ -103,3 +103,8 @@ Then(/^the Scenario should be tagged with "([^"]*?)"$/, function(step, tagName) 
   this.scenario.tag.should.include.string(tagName);
   step.done();
 });
+
+Then(/^the Scenario Outline should have "([^"]*?)" examples$/, function(step, exampleCount) {
+  this.scenario.examples.length.should.eql(parseInt(exampleCount));
+  step.done();
+});

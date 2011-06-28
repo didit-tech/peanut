@@ -16,6 +16,8 @@ AnyBeforeLastPipe (.|\n(?=\s*\|))
 ^"Background:"                              return 'BACKGROUND'
 ^"Scenario:"                                return 'SCENARIO'
 ^"Scenario Outline:"                        return 'OUTLINE'
+^"Examples:"                                return 'EXAMPLE'
+^"Scenarios:"                               return 'EXAMPLE'
 ^"Given"                                    return 'GIVEN'
 ^"When"                                     return 'WHEN'
 ^"Then"                                     return 'THEN'
@@ -55,10 +57,11 @@ Token
   : Background
   | Scenario
   | Outline
-  | Whitespace
   | Pystring
   | Table
+  | Examples
   | Line
+  | Whitespace
   | EOF { return yy.EOF(yy.file); }
   ;
 
@@ -98,7 +101,12 @@ Outline
   | Outline LINE {
       new yy.Line(yy.file, ['OUTLINE_DESCRIPTION', @2.first_line, $2]);
     }
-  | Outline Steps
+  ;
+
+Examples
+  : EXAMPLE Whitespace TABLE {
+      new yy.Examples(yy.file, ['EXAMPLES', @1.first_line, $3]);
+    }
   ;
 
 Steps

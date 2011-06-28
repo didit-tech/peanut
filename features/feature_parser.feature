@@ -136,3 +136,20 @@ Feature: Feature Parser
     """
     When the Feature is parsed
     Then the Scenario should be tagged with "tagged"
+
+  @focus
+  Scenario: With Scenario Outline
+    Given the Feature contains
+    """
+      Scenario Outline: Curiousity
+        Given some <setup>
+        When the <system> is exercised
+        Then the <result> should be expected
+
+        Scenarios:
+          | setup | system | result |
+          | one   | two    | three  |
+          | four  | five   | six    |
+    """
+    When the Feature is parsed
+    Then the Scenario Outline should have "2" examples
