@@ -141,9 +141,9 @@ Feature: Feature Parser
     Given the Feature contains
     """
       Scenario Outline: Curiousity
-        Given some <setup>
-        When the <system> is exercised
-        Then the <result> should be expected
+        Given some "<setup>"
+        When the "<system>" is exercised
+        Then the "<result>" should be expected
 
         Scenarios:
           | setup | system | result |
@@ -162,3 +162,4 @@ Feature: Feature Parser
       | 1       | setup  | four  |
       | 1       | system | five  |
       | 1       | result | six   |
+      
