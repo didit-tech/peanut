@@ -4,7 +4,7 @@ Feature: Feature Parser
   I want peanut to parse a feature file
 
   Background:
-    Given the Feature description is:
+    Given the Feature header is:
     """
     Feature: Sample Feature
       In order to do something
@@ -70,4 +70,69 @@ Feature: Feature Parser
       | Then I should have a complete background  |
       | And it should run all the way through     |
       | But it shouldn't break                    |
-      
+
+  Scenario: With Pystring
+    Given the Feature contains
+    """
+      Scenario: Pystring Scenario
+        Given some setup
+        When the system is exercised
+        Then the result should be expected
+    """
+    And the last Step has "I'm a funky pystring" as a Pystring
+    When the Feature is parsed
+    Then line "8" should have a Pystring argument "I'm a funky pystring"
+
+  Scenario: Background with Pystring
+    Given the Feature contains
+    """
+      Background:
+        Given some setup
+        When the system is exercised
+        Then the result should be expected
+    """
+    And the last Step has "I'm a background pystring" as a Pystring
+    When the Feature is parsed
+    Then the background should have a Pystring argument "I'm a background pystring" at line "8"
+
+  Scenario: With Table
+    Given the Feature contains
+    """
+      Scenario: Table Scenario
+        Given some setup
+          | That  | requires |
+          | table | setup    |
+        When the system is exercised
+        Then the result should be expected
+    """
+    When the Feature is parsed
+    Then line "6" should have the following Table argument
+      | That  | requires |
+      | table | setup    |
+
+  Scenario: Background with Table
+    Given the Feature contains
+    """
+      Background:
+        Given some setup
+        When the system is exercised
+          | With  | Some |
+          | Table | Args |
+        Then the result should be expected
+    """
+    When the Feature is parsed
+    Then the background should have the following table at line "7"
+      | With  | Some |
+      | Table | Args |
+
+  Scenario: With Tag
+    Given the Feature contains
+    """
+      @tagged
+      Scenario: Tagged Scenario
+        Given some setup
+        When the system is exercised
+        Then the result should be expected
+    """
+    When the Feature is parsed
+    Then the Scenario should be tagged with "tagged"

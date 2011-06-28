@@ -1,27 +1,34 @@
-@focus
-Feature: Step Formatter
-
-  Scenario: Basic step formatting
-    Given the Step AST is
-      | Step Name | Line Number | Description | Parent Step | Step Type | Is Background |
-      | Given     | 7           | i work      | undefined   | PYSTRING  | Background    |
-
-    And the step's Pystring is
-      """
-      I am a pystring
-      """
-
-    When the Step is formatted
-    Then the formatted Step should include:
-      | isBackground    | true            |
-      | lineno          | 7               |
-      | pattern         | i work          |
-      | step            | Given           |
-      | text            | i work          |
-      | type            | pystring        |
-      | args            | , pystring      |
-      | tableOrPyString | I am a pystring |
-
+#Feature: Step Formatter
+#
+#  Scenario: Basic step formatting
+#    Given the Step AST is
+#      | Step Name | Line Number | Description | Parent Step | Step Type | Is Background |
+#      | Given     | 7           | i work      | undefined   | PYSTRING  | Background    |
+#
+#    And the step's Pystring is
+#      """
+#      I am a pystring
+#      """
+#
+#    When the Step is formatted
+#    Then the formatted Step should include:
+#      | isBackground    | true            |
+#      | lineno          | 7               |
+#      | pattern         | i work          |
+#      | step            | Given           |
+#      | text            | i work          |
+#      | type            | pystring        |
+#      | args            | , pystring      |
+#      | tableOrPyString | I am a pystring |
+#
+#  Scenario: Format string args
+#    Given the Step AST is
+#      | Step Name | Line Number | Description          | Parent Step | Step Type | Is Background |
+#      | Given     | 7           | that "this" is setup |             |           |               |
+#
+#    When the Step is formatted
+#    Then the formatted Step Definition should have "this" as an arg
+#
 #Scenario: Format string args
 #  Given the Step AST is
 #  When the Step is formatted

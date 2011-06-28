@@ -12,36 +12,46 @@ var inspect = require('eyes').inspector({});
  * Steps.
  */
 
-Given(/^the Feature description is:$/, function(step, description) {
-  this.description = description;
+Given(/^the Feature header is:$/, function(step, featureHeader) {
+  this.fileText = featureHeader;
   step.done();
 });
 
 Given(/^the Feature contains$/, function(step, featureText) {
-  this.text = this.description + featureText;
+  this.fileText += featureText;
+  step.done();
+});
+
+Given(/^the last Step has "([^"]*?)" as a Pystring$/, function(step, pyString) {
+  this.fileText += '"""' + "\n" + pyString + "\n" + '"""';
   step.done();
 });
 
 When(/^the Feature is parsed$/, function(step) {
   parser.yy.file = new nodes.File();
-  this.parsedFile = parser.parse(this.text);
+  var parsedFile = parser.parse(this.fileText);
+  
+  this.feature = parsedFile.feature;
+  this.background = parsedFile.feature.background;
+  this.scenario = parsedFile.feature.scenarios[0];
+  
   step.done();
 });
 
 Then(/^the Feature should be named "([^"]*?)"$/, function(step, featureName) {
-  this.parsedFile.feature.name.should.eql(featureName);
+  this.feature.name.should.eql(featureName);
   step.done();
 });
 
 Then(/^it should have a Scenario called "([^"]*?)"$/,
   function(step, scenarioName) {
-    this.parsedFile.feature.scenarios[0].name.should.eql(scenarioName);
+    this.scenario.name.should.eql(scenarioName);
     step.done();
   }
 );
 
 Then(/^it should have the following Steps:$/, function(step, stepNames) {
-  var steps = this.parsedFile.feature.scenarios[0].steps;
+  var steps = this.scenario.steps;
   _(stepNames.hashes()).each(function(step, i) {
     step['Name'].should.eql(steps[i][0] + ' ' + steps[i][2]);
   });
@@ -49,13 +59,13 @@ Then(/^it should have the following Steps:$/, function(step, stepNames) {
 });
 
 Then(/^it should have a Background$/, function(step) {
-  this.parsedFile.feature.should.have.property('background');
+  this.feature.should.have.property('background');
   step.done();
 });
 
 Then(/^the Background should have the following Steps:$/,
   function(step, stepNames) {
-    var steps = this.parsedFile.feature.background.steps;
+    var steps = this.background.steps;
     _(stepNames.hashes()).each(function(step, i) {
       step['Name'].should.eql(steps[i][0] + ' ' + steps[i][2]);
     });
@@ -63,6 +73,33 @@ Then(/^the Background should have the following Steps:$/,
   }
 );
 
-Then(/^the first step should have "([^"]*?)" as an argument $/, function(step, argName) {
-  step.pending();
+Then(/^line "([^"]*?)" should have a Pystring argument "([^"]*?)"$/,
+  function(step, lineno, pyStringArg) {
+    var stepArgs = this.scenario.stepArgs;
+    stepArgs[parseInt(lineno)].should.include.string(pyStringArg);
+    step.done();
+  }
+);
+
+Then(/^the background should have a Pystring argument "([^"]*?)" at line "([^"]*?)"$/, function(step, pyStringArg, lineno) {
+  var stepArgs = this.background.stepArgs;
+  stepArgs[parseInt(lineno)].should.include.string(pyStringArg);
+  step.done();
+});
+
+Then(/^line "([^"]*?)" should have the following Table argument$/, function(step, lineno, table) {
+  var stepArgs = this.scenario.stepArgs;
+  stepArgs[parseInt(lineno)].should.eql(table.raw);
+  step.done();
+});
+
+Then(/^the background should have the following table at line "([^"]*?)"$/, function(step, lineno, table) {
+  var stepArgs = this.background.stepArgs;
+  stepArgs[parseInt(lineno)].should.eql(table.raw);
+  step.done();
+});
+
+Then(/^the Scenario should be tagged with "([^"]*?)"$/, function(step, tagName) {
+  this.scenario.tag.should.include.string(tagName);
+  step.done();
 });

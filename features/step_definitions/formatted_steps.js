@@ -13,11 +13,24 @@ var convertVal = function(val) {
   return val;
 };
 
+var defaultFile = {
+  feature: {
+    background: {
+      stepArgs: {}
+    }
+  }
+};
+
+var defaultScenario = {
+  stepArgs: {}
+};
+
 /**
  * Steps.
  */
 
 Given(/^the Step AST is$/, function(step, table) {
+  this.file = defaultFile;
   this.token = _(table.raw[1]).map(function(key) {
     return convertVal(key);
   });
@@ -25,20 +38,13 @@ Given(/^the Step AST is$/, function(step, table) {
 });
 
 Given(/^the step's Pystring is$/, function(step, pystring) {
-  this.file = {
-    feature: {
-      background: {
-        stepArgs: {}
-      }
-    },
-  }
   this.file.feature.background.stepArgs[this.token[1]] = pystring;
   step.done();
 });
 
 When(/^the Step is formatted$/, function(step) {
   this.formattedToken = gherkinFormatter.formatStep(
-    this.token, {}, {}, this.file);
+    this.token, {}, defaultScenario, this.file);
   step.done();
 });
 
