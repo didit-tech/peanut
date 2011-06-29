@@ -7,12 +7,13 @@ var describe = testHelper.describe(exports);
 var formatter = require('brain/format_gherkin');
 var utils = require('utils');
 var _ = require('underscore')._;
+var inspect = require('eyes').inspector({});
 
 /**
   * test - unit - utils.
   */
 
-describe('formatter.formatExample', function(it) {
+describe('when formatting an example', function(it) {
   it('replaces one <argument> for one step', function(test) {
     var example = { animal: 'elephant' };
     var scenario = {
@@ -121,5 +122,58 @@ describe('formatter.formatExample', function(it) {
       scenario.stepArgs['4'][1][1].should.eql('horse');
       test.finish();
     });
+  });
+});
+
+describe('when formatting a step', function(it) {
+  var file = { feature: { background: {}}};
+
+  it("should replace text between quotes with a string argument", function(test) {
+    test.stub(utils, 'selectStepDefinition').returns({
+      pattern : /^the "([^"]*?)" is something$/
+    });
+
+    step = ['Given', 4, 'the "argument" is something'];
+
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    formattedStep.stepDefinition.args.should.contain('argument');
+    test.finish();
+  });
+
+  it("should replace text between quotes with a string containing a single quote", function(test) {
+    test.stub(utils, 'selectStepDefinition').returns({
+      pattern : /^the "([^"]*?)" is tasty$/
+    });
+
+    step = ['Given', 4, 'the "argument\'s pancake" is tasty'];
+
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    formattedStep.stepDefinition.args.should.contain("argument's pancake");
+    test.finish();
+  });
+
+  it("replaces a number with an argument", function(test) {
+    test.stub(utils, 'selectStepDefinition').returns({
+      pattern : /^the number (.*) is everything$/
+    });
+
+    step = ['Given', 4, 'the number 42 is everything'];
+
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    formattedStep.stepDefinition.args.should.contain(42);
+    test.finish();
+  });
+
+  it("replaces two types of arguments correctly", function(test) {
+    test.stub(utils, 'selectStepDefinition').returns({
+      pattern : /^the number (.*) is "([^"]*?)"$/
+    });
+
+    step = ['Given', 4, 'the number 42 is "everything"'];
+
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    formattedStep.stepDefinition.args.should.contain(42);
+    formattedStep.stepDefinition.args.should.contain('everything');
+    test.finish();
   });
 });

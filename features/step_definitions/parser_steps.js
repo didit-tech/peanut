@@ -30,11 +30,11 @@ Given(/^the last Step has "([^"]*?)" as a Pystring$/, function(step, pyString) {
 When(/^the Feature is parsed$/, function(step) {
   parser.yy.file = new nodes.File();
   var parsedFile = parser.parse(this.fileText);
-  
+
   this.feature = parsedFile.feature;
   this.background = parsedFile.feature.background;
   this.scenario = parsedFile.feature.scenarios[0];
-  
+
   step.done();
 });
 
@@ -73,29 +73,29 @@ Then(/^the Background should have the following Steps:$/,
   }
 );
 
-Then(/^line "([^"]*?)" should have a Pystring argument "([^"]*?)"$/,
+Then(/^line (\d+) should have a Pystring argument "([^"]*?)"$/,
   function(step, lineno, pyStringArg) {
     var stepArgs = this.scenario.stepArgs;
-    stepArgs[parseInt(lineno)].should.include.string(pyStringArg);
+    stepArgs[lineno].should.include.string(pyStringArg);
     step.done();
   }
 );
 
-Then(/^the background should have a Pystring argument "([^"]*?)" at line "([^"]*?)"$/, function(step, pyStringArg, lineno) {
+Then(/^the background should have a Pystring argument "([^"]*?)" at line (\d+)$/, function(step, pyStringArg, lineno) {
   var stepArgs = this.background.stepArgs;
-  stepArgs[parseInt(lineno)].should.include.string(pyStringArg);
+  stepArgs[lineno].should.include.string(pyStringArg);
   step.done();
 });
 
-Then(/^line "([^"]*?)" should have the following Table argument$/, function(step, lineno, table) {
+Then(/^line (\d+) should have the following Table argument$/, function(step, lineno, table) {
   var stepArgs = this.scenario.stepArgs;
-  stepArgs[parseInt(lineno)].should.eql(table.raw);
+  stepArgs[lineno].should.eql(table.raw);
   step.done();
 });
 
-Then(/^the background should have the following table at line "([^"]*?)"$/, function(step, lineno, table) {
+Then(/^the background should have the following table at line (\d+)$/, function(step, lineno, table) {
   var stepArgs = this.background.stepArgs;
-  stepArgs[parseInt(lineno)].should.eql(table.raw);
+  stepArgs[lineno].should.eql(table.raw);
   step.done();
 });
 
@@ -104,12 +104,12 @@ Then(/^the Scenario should be tagged with "([^"]*?)"$/, function(step, tagName) 
   step.done();
 });
 
-Then(/^the Scenario Outline should have "([^"]*?)" examples$/, function(step, exampleCount) {
-  this.scenario.examples.length.should.eql(parseInt(exampleCount));
+Then(/^the Scenario Outline should have (\d+) examples$/, function(step, exampleCount) {
+  this.scenario.examples.length.should.eql(exampleCount);
   step.done();
 });
 
-Then(/^Example "([^"]*?)" "([^"]*?)" should be "([^"]*?)"$/, function(step, exampleno, header, val) {
-  this.scenario.examples[parseInt(exampleno)][header].should.eql(val);
+Then(/^Example (\d+) "([^"]*?)" should be "([^"]*?)"$/, function(step, exampleno, header, val) {
+  this.scenario.examples[exampleno][header].should.eql(val);
   step.done();
 });

@@ -28,3 +28,25 @@ Then(/^I should have a table header of "([^"]*?)"$/, function(step, tableHeader)
   this.actualTable.headers()[0].should.eql(tableHeader);
   step.done();
 });
+
+Given(/^I have a Scenario with an "([^"]*?)"$/, function(step, stepArgString) {
+  this.stepArgString = stepArgString;
+  step.done();
+});
+
+Then(/^the argument should be "([^"]*?)"$/, function(step, stepArgString) {
+  _.isString(stepArgString).should.be.true;
+  this.stepArgString.should.eql(stepArgString);
+  step.done();
+});
+
+Given(/^I have a Scenario with an (.*)$/, function(step, stepArgNumber) {
+  this.stepArgNumber = stepArgNumber;
+  step.done();
+});
+
+Then(/^the argument should be (.*)$/, function(step, stepArgNumber) {
+  _.isNumber(stepArgNumber).should.be.true;
+  this.stepArgNumber.should.eql(stepArgNumber);
+  step.done();
+});

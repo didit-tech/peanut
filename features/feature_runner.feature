@@ -15,3 +15,12 @@ Feature: Feature Runner
       | header                | pystring       |
       | boring table header   | wacky pystring |
       | exciting table header | funky pystring |
+
+  Scenario Outline: With Arguments
+    Given I have a Scenario with an <argument>
+    Then the argument should be <argument>
+
+    Examples:
+      | argument   |
+      | "argValue" |
+      | 42         |

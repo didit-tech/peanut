@@ -81,7 +81,7 @@ Feature: Feature Parser
     """
     And the last Step has "I'm a funky pystring" as a Pystring
     When the Feature is parsed
-    Then line "8" should have a Pystring argument "I'm a funky pystring"
+    Then line 8 should have a Pystring argument "I'm a funky pystring"
 
   Scenario: Background with Pystring
     Given the Feature contains
@@ -93,7 +93,7 @@ Feature: Feature Parser
     """
     And the last Step has "I'm a background pystring" as a Pystring
     When the Feature is parsed
-    Then the background should have a Pystring argument "I'm a background pystring" at line "8"
+    Then the background should have a Pystring argument "I'm a background pystring" at line 8
 
   Scenario: With Table
     Given the Feature contains
@@ -106,7 +106,7 @@ Feature: Feature Parser
         Then the result should be expected
     """
     When the Feature is parsed
-    Then line "6" should have the following Table argument
+    Then line 6 should have the following Table argument
       | That  | requires |
       | table | setup    |
 
@@ -121,7 +121,7 @@ Feature: Feature Parser
         Then the result should be expected
     """
     When the Feature is parsed
-    Then the background should have the following table at line "7"
+    Then the background should have the following table at line 7
       | With  | Some |
       | Table | Args |
 
@@ -151,8 +151,8 @@ Feature: Feature Parser
           | four  | five   | six    |
     """
     When the Feature is parsed
-    Then the Scenario Outline should have "2" examples
-    And Example "<example>" "<header>" should be "<val>"
+    Then the Scenario Outline should have 2 examples
+    And Example <example> "<header>" should be "<val>"
 
     Examples:
       | example | header | val   |
@@ -162,4 +162,3 @@ Feature: Feature Parser
       | 1       | setup  | four  |
       | 1       | system | five  |
       | 1       | result | six   |
-      
