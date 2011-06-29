@@ -7,7 +7,6 @@ var describe = testHelper.describe(exports);
 var formatter = require('brain/format_gherkin');
 var utils = require('utils');
 var _ = require('underscore')._;
-var inspect = require('eyes').inspector({});
 
 /**
   * test - unit - utils.

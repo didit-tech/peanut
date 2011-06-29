@@ -6,7 +6,6 @@ var util = require('util');
 var parser = require("../../lib/parser").parser;
 var nodes = require("../../lib/nodes");
 var _ = require('underscore')._;
-var inspect = require('eyes').inspector({});
 
 /**
  * Steps.

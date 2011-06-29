@@ -3,7 +3,6 @@
  */
 
 var _ = require('underscore')._;
-var inspect = require('eyes').inspector({});
 
 /**
  * Steps.
