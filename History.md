@@ -1,3 +1,12 @@
+0.2.0 / 2011-06-29
+==================
+
+  * Peanut testing itself
+  * Step args working for Strings and Numbers
+  * Scenario Outlines
+  * Examples
+  * Pystrings
+  * Tables
 
 0.1.1 / 2011-05-16
 ==================
