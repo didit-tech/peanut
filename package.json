@@ -5,14 +5,14 @@
   , "keywords": ["testing", "bdd", "tdd", "cucumber"]
   , "author": "Didit <development@didit.com>"
   , "dependencies": {
-      "express": "2.4.0",
+      "express": "2.3.12",
       "findit": "0.0.3",
       "jade": "0.10.5",
       "optimist": "0.1.9",
       "socket.io": "0.6.17",
       "stylus": "0.12.0",
       "underscore": "1.1.6",
-      "tobi": "0.2.2"
+      "tobi": "0.2.1"
     }
   , "devDependencies": {
       "should": "*",
