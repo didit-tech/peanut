@@ -3,9 +3,10 @@
  */
 
 var util = require('util');
-var parser = require("../../lib/parser").parser;
-var nodes = require("../../lib/nodes");
+var parser = require(__dirname + "/../../lib/parser").parser;
+var nodes = require(__dirname + "/../../lib/nodes");
 var _ = require('underscore')._;
+parser.yy = nodes;
 
 /**
  * Steps.
