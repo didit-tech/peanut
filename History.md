@@ -1,3 +1,9 @@
+0.2.2 / 2011-07-01
+==================
+
+  * Correctly parsing multiple numbers for a step
+  * Moved string regex replacements before number replacements
+
 0.2.1 / 2011-06-29
 ==================
 

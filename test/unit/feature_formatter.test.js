@@ -153,7 +153,7 @@ describe('when formatting a step', function(it) {
 
   it("replaces a number with an argument", function(test) {
     test.stub(utils, 'selectStepDefinition').returns({
-      pattern : /^the number (.*) is everything$/
+      pattern : /^the number (\d+) is everything$/
     });
 
     step = ['Given', 4, 'the number 42 is everything'];
@@ -165,7 +165,7 @@ describe('when formatting a step', function(it) {
 
   it("replaces two types of arguments correctly", function(test) {
     test.stub(utils, 'selectStepDefinition').returns({
-      pattern : /^the number (.*) is "([^"]*?)"$/
+      pattern : /^the number (\d+) is "([^"]*?)"$/
     });
 
     step = ['Given', 4, 'the number 42 is "everything"'];
@@ -173,6 +173,20 @@ describe('when formatting a step', function(it) {
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
     formattedStep.stepDefinition.args.should.contain(42);
     formattedStep.stepDefinition.args.should.contain('everything');
+    test.finish();
+  });
+
+  it("replaces multiple numbers correctly", function(test) {
+    test.stub(utils, 'selectStepDefinition').returns({
+      pattern : /^the number (\d+) is greater than (\d+)$/
+    });
+
+    step = ['Given', 4, 'the number 42 is greater than 23'];
+
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    formattedStep.pattern.should.eql('the number (\\d+) is greater than (\\d+)')
+    formattedStep.stepDefinition.args.should.contain(42);
+    formattedStep.stepDefinition.args.should.contain(23);
     test.finish();
   });
 });
