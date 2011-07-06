@@ -1,3 +1,8 @@
+0.2.3 / 2011-07-06
+==================
+
+  * [BUGFIX] reusing of steps properly sends in correct arguments
+
 0.2.2 / 2011-07-01
 ==================
 
