@@ -3,11 +3,13 @@
 
   node.js cucumber implementation for the birds
   
-  npm install peanut (right now you can clone this repository and 'npm install')
+  npm install peanut -g
 
 # quickstart
 
     peanut
+    
+    look at features directory for example usage for the time being
 
 ## License
 
