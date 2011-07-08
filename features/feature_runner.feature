@@ -24,15 +24,15 @@ Feature: Feature Runner
       | argument   |
       | "argValue" |
       | 42         |
-      
+
   Scenario: Repeating Steps 1
     When my arg equals "First Scenario"
     Then it should have the first Scenario's value
-    
+
   Scenario: Repeating Steps 2
     When my arg equals "Second Scenario"
     Then it should have the second Scenario's value
-    
+
   Scenario: Repeating Steps 3
     When my arg equals "Third Scenario"
     Then it should have the third Scenario's value

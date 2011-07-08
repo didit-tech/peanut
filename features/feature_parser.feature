@@ -162,3 +162,71 @@ Feature: Feature Parser
       | 1       | setup  | four  |
       | 1       | system | five  |
       | 1       | result | six   |
+
+  Scenario: Serial Feature
+    Given the Feature header is:
+    """
+    $serial
+    Feature: Serial Feature
+    """
+    And the Feature contains
+    """
+      Scenario: Serial Scenario
+        Given some setup
+        When the system is exercised
+        Then the result should be expected
+    """
+    When the Feature is parsed
+    Then the Feature should be marked as serial
+
+  Scenario: Serial Directive Before Tag
+    Given the Feature header is:
+    """
+    $serial
+    @serial
+    Feature: Serial Feature
+    """
+    And the Feature contains
+    """
+      Scenario: Serial Scenario
+        Given some setup
+        When the system is exercised
+        Then the result should be expected
+    """
+    When the Feature is parsed
+    Then the Feature should be marked as serial
+    And the Feature should be tagged as "serial"
+
+  Scenario: Serial Directive After Tag
+    Given the Feature header is:
+    """
+    @serial
+    $serial
+    Feature: Serial Feature
+    """
+    And the Feature contains
+    """
+      Scenario: Serial Scenario
+        Given some setup
+        When the system is exercised
+        Then the result should be expected
+    """
+    When the Feature is parsed
+    Then the Feature should be marked as serial
+    And the Feature should be tagged as "serial"
+
+  Scenario: Feature Timeout
+    Given the Feature header is:
+    """
+    $timeout 10
+    Feature: Feature Timeout
+    """
+    And the Feature contains
+    """
+      Scenario: Scenario With a Timeout
+        Given some setup
+        When the system is exercised
+        Then the result should be expected
+    """
+    When the Feature is parsed
+    Then the Feature should have a timeout of 10 seconds

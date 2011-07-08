@@ -113,3 +113,18 @@ Then(/^Example (\d+) "([^"]*?)" should be "([^"]*?)"$/, function(step, exampleno
   this.scenario.examples[exampleno][header].should.eql(val);
   step.done();
 });
+
+Then(/^the Feature should be marked as serial$/, function(step) {
+  this.feature.serial.should.be.true;
+  step.done();
+});
+
+Then(/^the Feature should have a timeout of (\d+) seconds$/, function(step, timeout) {
+  this.feature.timeout.should.eql(timeout);
+  step.done();
+});
+
+Then(/^the Feature should be tagged as "([^"]*?)"$/, function(step, tagName) {
+  this.feature.tag.should.include.string(tagName);
+  step.done();
+});

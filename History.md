@@ -1,3 +1,9 @@
+0.3.0 / 2011-07-08
+==================
+
+  * Added $serial option for feature
+  * Added $timeout {num_of_seconds} for feature
+
 0.2.3 / 2011-07-06
 ==================
 
