@@ -39,12 +39,6 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     abbr: "t",
     metavar: "TAG"
   },
-  failfast: {
-    help: "Should peanut fail fast? (default: true)",
-    abbr: "f",
-    choices: [true, false],
-    default: true
-  },
   port: {
     help: "Port to run on for web runner (default: 8282)",
     abbr: "p",
