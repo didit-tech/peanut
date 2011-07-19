@@ -39,6 +39,11 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     abbr: "t",
     metavar: "TAG"
   },
+  timeout: {
+    help: "Test timeout in ms (default: 5000)",
+    metavar: "TIME",
+    default: 5000
+  },
   port: {
     help: "Port to run on for web runner (default: 8282)",
     abbr: "p",
