@@ -6,4 +6,95 @@
  * MIT Licensed
  */
 
-require('../lib/runner/app');
+/**
+ * Module dependencies.
+ */
+
+var steps = require('../lib/steps');
+var fs = require('fs');
+var _ = require('underscore')._;
+var nomnom = require('nomnom');
+
+/**
+ * Command line options.
+ */
+
+global.__peanut__ = {};
+__peanut__.options = nomnom.scriptName('peanut').opts({
+  path: {
+    help: "Your features path (default: features)",
+    default: ["features"],
+    position: 0,
+    list: true
+  },
+  runner: {
+    help: "How peanut is run (default: cli) options: [cli, web]",
+    abbr: "r",
+    metavar: "RUNNER",
+    choices: ['cli', 'web'],
+    default: 'cli'
+  },
+  tag: {
+    help: "Run tag",
+    abbr: "t",
+    metavar: "TAG"
+  },
+  failfast: {
+    help: "Should peanut fail fast? (default: true)",
+    abbr: "f",
+    choices: [true, false],
+    default: true
+  },
+  port: {
+    help: "Port to run on for web runner (default: 8282)",
+    abbr: "p",
+    metavar: "PORT",
+    default: 8282
+  }
+}).parseArgs();
+
+/**
+ * Step definitions.
+ */
+
+['Given', 'When', 'Then'].forEach(function(step) {
+  global[step] = steps[step];
+});
+
+__peanut__.stepDefinitions = [];
+
+/**
+ * Globals.
+ */
+
+global.assert = require('assert');
+global.should = require('../support/should');
+
+/**
+ * Custom error handler.
+ */
+
+require('../lib/errors');
+
+/**
+ * support/env.js check.
+ */
+
+__peanut__.envExists = true;
+try {
+  fs.statSync(process.cwd()+'/features/support/env.js');
+} catch(err) {
+  __peanut__.envExists = false;
+}
+
+/**
+ * Formatter.
+ */
+
+__peanut__.formatter = require('../lib/formatters/'+__peanut__.options.runner);
+
+/**
+ * Runner.
+ */
+
+require('../lib/runner/'+__peanut__.options.runner);

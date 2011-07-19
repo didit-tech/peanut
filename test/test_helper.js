@@ -2,8 +2,8 @@
  * Module dependencies.
  */
 
-require('should');
 global.assert = require('assert');
+global.should = require('../support/should');
 var sinon = require('sinon');
 
 module.exports = {
