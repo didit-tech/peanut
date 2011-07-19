@@ -1,3 +1,11 @@
+0.4.0 / 2011-07-19
+==================
+
+  * Command line runner by default
+  * Command line options "peanut -h"
+  * Set global timeout
+  * Specify port for web runner
+
 0.3.1 / 2011-07-12
 ==================
 
