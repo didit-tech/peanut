@@ -1,3 +1,8 @@
+0.5.0 / 2011-07-20
+==================
+
+  * CLI interface now tracks how many steps and safely exits when done
+
 0.4.1 / 2011-07-19
 ==================
 

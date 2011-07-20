@@ -134,7 +134,7 @@ describe('when formatting a step', function(it) {
 
     step = ['Given', 4, 'the "argument" is something'];
 
-    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
     formattedStep.stepDefinition.args.should.contain('argument');
     test.finish();
   });
@@ -146,7 +146,7 @@ describe('when formatting a step', function(it) {
 
     step = ['Given', 4, 'the "argument\'s pancake" is tasty'];
 
-    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
     formattedStep.stepDefinition.args.should.contain("argument's pancake");
     test.finish();
   });
@@ -158,7 +158,7 @@ describe('when formatting a step', function(it) {
 
     step = ['Given', 4, 'the number 42 is everything'];
 
-    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
     formattedStep.stepDefinition.args.should.contain(42);
     test.finish();
   });
@@ -170,7 +170,7 @@ describe('when formatting a step', function(it) {
 
     step = ['Given', 4, 'the number 42 is "everything"'];
 
-    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
     formattedStep.stepDefinition.args.should.contain(42);
     formattedStep.stepDefinition.args.should.contain('everything');
     test.finish();
@@ -183,7 +183,7 @@ describe('when formatting a step', function(it) {
 
     step = ['Given', 4, 'the number 42 is greater than 23'];
 
-    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, '', file);
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
     formattedStep.pattern.should.eql('the number (\\d+) is greater than (\\d+)')
     formattedStep.stepDefinition.args.should.contain(42);
     formattedStep.stepDefinition.args.should.contain(23);
