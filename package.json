@@ -5,6 +5,7 @@
   , "keywords": ["testing", "bdd", "tdd", "cucumber"]
   , "author": "Didit <development@didit.com>"
   , "dependencies": {
+      "async": "0.1.9",
       "express": "2.4.3",
       "findit": "0.1.1",
       "jade": "0.13.0",
