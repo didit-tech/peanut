@@ -2,14 +2,18 @@
 # peanut
 
   node.js cucumber implementation for the birds
-  
+
   npm install peanut -g
 
 # quickstart
 
     peanut
-    
+
     look at features directory for example usage for the time being
+
+# help
+
+    peanut -h
 
 ## License
 
