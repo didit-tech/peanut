@@ -49,6 +49,10 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     abbr: "p",
     metavar: "PORT",
     default: 8282
+  },
+  serial: {
+    help: "run features serially",
+    abbr: "s"
   }
 }).parseArgs();
 
