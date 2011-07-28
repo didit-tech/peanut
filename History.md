@@ -1,3 +1,9 @@
+0.5.2 / 2011-07-28
+==================
+
+  * Run features serially with -s option (mcollina)
+  * Timeout of 100ms before exiting to flush output (mcollina)
+
 0.5.1 / 2011-07-25
 ==================
 
