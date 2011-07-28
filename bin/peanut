@@ -51,7 +51,7 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     default: 8282
   },
   serial: {
-    help: "run features serially",
+    help: "Run features serially",
     abbr: "s"
   }
 }).parseArgs();
