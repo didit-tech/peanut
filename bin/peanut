@@ -34,6 +34,12 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     choices: ['cli', 'web'],
     default: 'cli'
   },
+  output: {
+    help: "Specify a file to output JUnit compatible xml",
+    abbr: "o",
+    metavar: "OUTPUT",
+    default: nil
+  },
   tag: {
     help: "Run tag",
     abbr: "t",
@@ -65,6 +71,7 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
 });
 
 __peanut__.stepDefinitions = [];
+__peanut__.features = {};
 
 /**
  * Globals.
@@ -93,7 +100,7 @@ try {
 /**
  * Formatter.
  */
-
+ 
 __peanut__.formatter = require('../lib/formatters/'+__peanut__.options.runner);
 
 /**
