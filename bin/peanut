@@ -38,7 +38,7 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     help: "Specify a file to output JUnit compatible xml",
     abbr: "o",
     metavar: "OUTPUT",
-    default: nil
+    default: null
   },
   tag: {
     help: "Run tag",
@@ -71,7 +71,7 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
 });
 
 __peanut__.stepDefinitions = [];
-__peanut__.features = {};
+__peanut__.features = {}
 
 /**
  * Globals.
