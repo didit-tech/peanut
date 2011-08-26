@@ -3,7 +3,7 @@
   , "version": "0.5.3"
   , "description": "node.js cucumber implementation for the birds"
   , "keywords": ["testing", "bdd", "tdd", "cucumber"]
-  , "author": "Didit <development@didit.com>"
+  , "author": "Didit Tech <development@didit.com>"
   , "dependencies": {
       "async": "0.1.9",
       "express": "2.4.3",
