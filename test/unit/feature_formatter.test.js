@@ -184,9 +184,21 @@ describe('when formatting a step', function(it) {
     step = ['Given', 4, 'the number 42 is greater than 23'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.pattern.should.eql('the number (\\d+) is greater than (\\d+)')
+    formattedStep.pattern.should.eql('the number (\\d*\\.)?(\\d+) is greater than (\\d*\\.)?(\\d+)')
     formattedStep.stepDefinition.args.should.contain(42);
     formattedStep.stepDefinition.args.should.contain(23);
+    test.finish();
+  });
+  
+  it("replaces floats", function(test) {
+    test.stub(utils, 'selectStepDefinition').returns({
+      pattern: /^I have <exp> amount of money$/
+    });
+    
+    step = ['Given', 4, 'I have 25.34 amount of money'];
+    
+    var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
+    formattedStep.stepDefinition.args.should.contain(25.34);
     test.finish();
   });
 });

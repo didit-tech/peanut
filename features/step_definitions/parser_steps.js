@@ -45,7 +45,7 @@ Then(/^the Feature should be named "([^"]*?)"$/, function(step, featureName) {
 
 Then(/^it should have a Scenario called "([^"]*?)"$/,
   function(step, scenarioName) {
-    this.scenario.name.should.eql(scenarioName);
+    this.scenario.name.should.eql('scenarioName');
     step.done();
   }
 );
