@@ -4,6 +4,7 @@
   , "description": "node.js cucumber implementation for the birds"
   , "keywords": ["testing", "bdd", "tdd", "cucumber"]
   , "author": "Didit Tech <development@didit.com>"
+  , "url": "https://github.com/didit-tech/peanut"
   , "dependencies": {
       "async": "0.1.9",
       "express": "2.4.3",
