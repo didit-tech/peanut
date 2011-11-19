@@ -15,7 +15,12 @@ Feature: Teardown
  Scenario: Simple Teardown
     Given the Feature contains
     """
-      Scenario: Sample scenario
+      Scenario: Sample Scenario
+        Given I set up some data
+        When I exercise my system
+        Then something happened
+
+      Scenario: Sample Scenario 2
         Given I set up some data
         When I exercise my system
         Then something happened
@@ -24,7 +29,17 @@ Feature: Teardown
         Then clean up my data
     """
     When the Feature is parsed
-    Then it should have a a Teardown
-    And the Teardown should have the following Steps:
-      | Name                  |
-      | Then clean up my data |
+    Then it should have a Scenario called "Sample Scenario"
+    And it should have the following Steps:
+      | Name                      |
+      | Given I set up some data  |
+      | When I exercise my system |
+      | Then something happened   |
+      | Then clean up my data     |
+    Then it should have a Scenario called "Sample Scenario 2"
+    And it should have the following Steps:
+      | Name                      |
+      | Given I set up some data  |
+      | When I exercise my system |
+      | Then something happened   |
+      | Then clean up my data     |

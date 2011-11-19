@@ -33,7 +33,6 @@ When(/^the Feature is parsed$/, function(step) {
 
   this.feature = parsedFile.feature;
   this.background = parsedFile.feature.background;
-  this.teardown = parsedFile.feature.teardown;
   this.scenario = parsedFile.feature.scenarios[0];
 
   step.done();
@@ -46,7 +45,7 @@ Then(/^the Feature should be named "([^"]*?)"$/, function(step, featureName) {
 
 Then(/^it should have a Scenario called "([^"]*?)"$/,
   function(step, scenarioName) {
-    this.scenario.name.should.eql(scenarioName);
+    _(this.feature.scenarios).pluck('name').should.contain(scenarioName);
     step.done();
   }
 );
@@ -127,5 +126,10 @@ Then(/^the Feature should have a timeout of (\d+) seconds$/, function(step, time
 
 Then(/^the Feature should be tagged as "([^"]*?)"$/, function(step, tagName) {
   this.feature.tag.should.include.string(tagName);
+  step.done();
+});
+
+Then(/^print some stuff$/, function(step) {
+  console.log('some stuff');
   step.done();
 });
