@@ -42,21 +42,6 @@ Feature: Feature Parser
       | And another result     |
       | But not that result    |
 
-  # Scenario: Freeform Steps
-  #    Given the Feature contains
-  #    """
-  #      Scenario: Sample Scenario
-  #        Given I want to leave GWT
-  #        When I ignore overbearing syntax rules
-  #        They will be used as regular steps
-  #    """
-  #    When the Feature is parsed
-  #    Then it should have the following Steps:
- # | Name                                   |
- # | Given I want to leave GWT              |
- # | When I ignore overbearing syntax rules |
- # | They will used as regular steps        |
-
   Scenario: Simple Background
     Given the Feature contains
     """
