@@ -79,6 +79,7 @@ __peanut__.features = {}
 
 global.assert = require('assert');
 global.should = require('../support/should');
+global.shouldExist = require('../support/should/index');
 
 /**
  * Custom error handler.

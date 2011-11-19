@@ -33,6 +33,7 @@ When(/^the Feature is parsed$/, function(step) {
 
   this.feature = parsedFile.feature;
   this.background = parsedFile.feature.background;
+  this.teardown = parsedFile.feature.teardown;
   this.scenario = parsedFile.feature.scenarios[0];
 
   step.done();

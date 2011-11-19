@@ -16,6 +16,7 @@ AnyBeforeLastPipe (.|\n(?=\s*\|))
 ^"#".+                                      return 'COMMENT'
 ^"Feature:"                                 return 'FEATURE'
 ^"Background:"                              return 'BACKGROUND'
+^"Teardown:"                                return 'TEARDOWN'
 ^"Scenario:"                                return 'SCENARIO'
 ^"Scenario Outline:"                        return 'OUTLINE'
 ^"Examples:"                                return 'EXAMPLE'
@@ -70,8 +71,23 @@ Token
   | Examples
   | Line
   | Whitespace
+  | Teardown
   | EOF { return yy.EOF(yy.file); }
   ;
+
+Teardown
+  : /* empty */
+  | TEARDOWN {
+      new yy.Teardown(yy.file, ['TEARDOWN', @1.first_line, $1]);
+    }
+  | Teardown LINE {{
+      if ($1 !== undefined) {
+        new yy.Line(yy.file, ['TEARDOWN_DESCRIPTION', @2.first_line, $2]);
+      }
+    }}
+  | Teardown Steps
+  ;
+
 
 Background
   : /* empty */
