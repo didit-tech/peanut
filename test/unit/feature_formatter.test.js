@@ -9,7 +9,7 @@ var utils = require('utils');
 var _ = require('underscore')._;
 
 /**
-  * test - unit - utils.
+  * test - unit - feature_formatter.
   */
 
 describe('when formatting an example', function(it) {
