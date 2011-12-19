@@ -189,14 +189,14 @@ describe('when formatting a step', function(it) {
     formattedStep.stepDefinition.args.should.contain(23);
     test.finish();
   });
-  
+
   it("replaces floats", function(test) {
     test.stub(utils, 'selectStepDefinition').returns({
       pattern: /^I have <exp> amount of money$/
     });
-    
+
     step = ['Given', 4, 'I have 25.34 amount of money'];
-    
+
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
     formattedStep.stepDefinition.args.should.contain(25.34);
     test.finish();

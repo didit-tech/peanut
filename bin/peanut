@@ -101,7 +101,7 @@ try {
 /**
  * Formatter.
  */
- 
+
 __peanut__.formatter = require('../lib/formatters/'+__peanut__.options.runner);
 
 /**
