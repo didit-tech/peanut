@@ -3,7 +3,7 @@
  */
 
 global.assert = require('assert');
-global.should = require('../support/should');
+global.should = require('should');
 var sinon = require('sinon');
 
 module.exports = {
