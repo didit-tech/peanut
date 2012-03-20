@@ -10,7 +10,7 @@
       "findit": "0.1.1",
       "jade": "0.13.0",
       "nomnom": "0.6.1",
-      "should": "0.3.2",
+      "should": "0.6.0",
       "sinon": "1.1.1",
       "socket.io": "0.6.17",
       "stylus": "0.13.7",
