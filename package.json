@@ -1,12 +1,11 @@
 {
     "name": "peanut"
-  , "version": "0.6.4"
+  , "version": "0.6.5"
   , "description": "node.js cucumber implementation for the birds"
   , "keywords": ["testing", "bdd", "tdd", "cucumber"]
   , "author": "Didit Tech <development@didit.com>"
   , "dependencies": {
       "async": "0.1.9",
-      "express": "2.4.3",
       "findit": "0.1.1",
       "jade": "0.13.0",
       "nomnom": "0.6.1",
@@ -18,6 +17,6 @@
       "xmlbuilder": "0.1.5"
     }
   , "bin": { "peanut": "./bin/peanut" }
-  , "engines": { "node": "0.4.x" }
+  , "engines": { "node": ">= 0.6.17" }
   , "preferGlobal": true
 }

@@ -135,7 +135,7 @@ describe('when formatting a step', function(it) {
     step = ['Given', 4, 'the "argument" is something'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.contain('argument');
+    formattedStep.stepDefinition.args.should.include('argument');
     test.finish();
   });
 
@@ -147,7 +147,7 @@ describe('when formatting a step', function(it) {
     step = ['Given', 4, 'the "argument\'s pancake" is tasty'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.contain("argument's pancake");
+    formattedStep.stepDefinition.args.should.include("argument's pancake");
     test.finish();
   });
 
@@ -159,7 +159,7 @@ describe('when formatting a step', function(it) {
     step = ['Given', 4, 'the number 42 is everything'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.contain(42);
+    formattedStep.stepDefinition.args.should.include(42);
     test.finish();
   });
 
@@ -171,8 +171,8 @@ describe('when formatting a step', function(it) {
     step = ['Given', 4, 'the number 42 is "everything"'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.contain(42);
-    formattedStep.stepDefinition.args.should.contain('everything');
+    formattedStep.stepDefinition.args.should.include(42);
+    formattedStep.stepDefinition.args.should.include('everything');
     test.finish();
   });
 
@@ -185,8 +185,8 @@ describe('when formatting a step', function(it) {
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
     formattedStep.pattern.should.eql('the number (\\d*\\.)?(\\d+) is greater than (\\d*\\.)?(\\d+)')
-    formattedStep.stepDefinition.args.should.contain(42);
-    formattedStep.stepDefinition.args.should.contain(23);
+    formattedStep.stepDefinition.args.should.include(42);
+    formattedStep.stepDefinition.args.should.include(23);
     test.finish();
   });
 
@@ -198,7 +198,7 @@ describe('when formatting a step', function(it) {
     step = ['Given', 4, 'I have 25.34 amount of money'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.contain(25.34);
+    formattedStep.stepDefinition.args.should.include(25.34);
     test.finish();
   });
 });

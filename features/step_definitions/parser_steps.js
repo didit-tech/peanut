@@ -45,7 +45,7 @@ Then(/^the Feature should be named "([^"]*?)"$/, function(step, featureName) {
 
 Then(/^it should have a Scenario called "([^"]*?)"$/,
   function(step, scenarioName) {
-    _(this.feature.scenarios).pluck('name').should.contain(scenarioName);
+    _(this.feature.scenarios).pluck('name').should.include(scenarioName);
     step.done();
   }
 );
@@ -76,14 +76,14 @@ Then(/^the Background should have the following Steps:$/,
 Then(/^line (\d+) should have a Pystring argument "([^"]*?)"$/,
   function(step, lineno, pyStringArg) {
     var stepArgs = this.scenario.stepArgs;
-    stepArgs[lineno].should.include.string(pyStringArg);
+    stepArgs[lineno].should.include(pyStringArg);
     step.done();
   }
 );
 
 Then(/^the background should have a Pystring argument "([^"]*?)" at line (\d+)$/, function(step, pyStringArg, lineno) {
   var stepArgs = this.background.stepArgs;
-  stepArgs[lineno].should.include.string(pyStringArg);
+  stepArgs[lineno].should.include(pyStringArg);
   step.done();
 });
 
@@ -100,7 +100,7 @@ Then(/^the background should have the following table at line (\d+)$/, function(
 });
 
 Then(/^the Scenario should be tagged with "([^"]*?)"$/, function(step, tagName) {
-  this.scenario.tag.should.include.string(tagName);
+  this.scenario.tag.should.include(tagName);
   step.done();
 });
 
@@ -125,7 +125,7 @@ Then(/^the Feature should have a timeout of (\d+) seconds$/, function(step, time
 });
 
 Then(/^the Feature should be tagged as "([^"]*?)"$/, function(step, tagName) {
-  this.feature.tag.should.include.string(tagName);
+  this.feature.tag.should.include(tagName);
   step.done();
 });
 

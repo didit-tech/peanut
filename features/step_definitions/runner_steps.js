@@ -34,7 +34,7 @@ When(/^my arg equals "([^"]*?)"$/, function(step, arg) {
 });
 
 Then(/^the Pystring should be "([^"]*?)"$/, function(step, expectedPystring) {
-  this.actualPyString.should.include.string(expectedPystring);
+  this.actualPyString.should.include(expectedPystring);
   step.done();
 });
 
