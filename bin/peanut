@@ -27,13 +27,6 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     position: 0,
     list: true
   },
-  runner: {
-    help: "How peanut is run (default: cli) options: [cli, web]",
-    abbr: "r",
-    metavar: "RUNNER",
-    choices: ['cli', 'web'],
-    default: 'cli'
-  },
   output: {
     help: "Specify a file to output JUnit compatible xml",
     abbr: "o",
