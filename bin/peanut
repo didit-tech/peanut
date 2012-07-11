@@ -55,6 +55,9 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
   }
 }).parseArgs();
 
+// temporary until we fix web or get rid of it
+__peanut__.options.runner = 'cli';
+
 /**
  * Step definitions.
  */

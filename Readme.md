@@ -7,9 +7,120 @@
 
 # quickstart
 
-    peanut
+#### 1: Describe behavior in plain text
 
-    look at features directory for example usage for the time being
+```cucumber
+Feature: Addition
+  In order to avoid silly mistakes
+  As a match idiot
+  I want to be told the sum of two numbers
+
+  Scenario: Add two numbers
+    Given I have entered 50 into the calculator
+    and I have entered 70 into the calculator
+    When I press add
+    Then the result should be 120 on the screen
+```
+
+#### 2: Run and get the template for a step definition file
+peanut
+
+```bash
+Running features
+
+...
+
+Successful: 0
+Failed: 0
+Pending: 0
+Skipped: 0
+Unimplemented: 3
+
+Given(/^I have entered (\d*\.)?(\d+) into the calculator$/, function(step, arg) {
+  step.pending();
+});
+
+When(/^I press add $/, function(step) {
+  step.pending();
+});
+
+Then(/^the result should be (\d*\.)?(\d+) on the screen$/, function(step, arg) {
+  step.pending();
+});
+```
+
+#### 3: Write a step definition in Javascript
+
+```javascript
+var assert = require('assert')
+var calculator = require('../support/calculator')
+
+Given(/^I have entered (\d*\.)?(\d+) into the calculator$/, function(step, arg) {
+  calculator.push(parseInt(arg))
+  step.done()
+})
+
+When(/^I press add $/, function(step) {
+  var self = this
+  calculator.add(function(err, sum) {
+    self.sum = sum
+    step.done()
+  })
+})
+
+Then(/^the result should be (\d*\.)?(\d+) on the screen$/, function(step, arg) {
+  assert.equal(this.sum, arg)
+  step.done()
+})
+```
+
+#### 4: Run and watch it fail
+
+```bash
+Running features
+
+Error: Cannot find module '../support/calculator'
+....
+```
+
+#### 5: Write code to make the test pass
+
+```javascript
+module.exports = (function() {
+  var args = []
+
+  return {
+    push: function(arg) {
+      args.push(arg)
+    },
+    add: function(callback) {
+      try {
+        var result = 0
+        for (var i=0; i<args.length; i++) result+=args[i]
+        callback(null, result)
+      } catch (err) {
+        callback(err)
+      }
+    }
+  }
+})()
+```
+
+#### 6: Run again and see the step pass
+
+```bash
+Running features
+
+....
+
+Successful: 4
+Failed: 0
+Pending: 0
+Skipped: 0
+Unimplemented: 0
+```
+
+#### 7: Repeat 1 - 6 until the money runs out
 
 # help
 
@@ -35,7 +146,7 @@ included in all copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
