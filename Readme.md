@@ -23,7 +23,7 @@ Feature: Addition
 ```
 
 #### 2: Run and get the template for a step definition file
-peanut
+peanut features/example.feature
 
 ```bash
 Running features
@@ -40,7 +40,7 @@ Given(/^I have entered (\d*\.)?(\d+) into the calculator$/, function(step, arg) 
   step.pending();
 });
 
-When(/^I press add $/, function(step) {
+When(/^I press add$/, function(step) {
   step.pending();
 });
 
@@ -61,20 +61,16 @@ Given(/^I have entered (\d*\.)?(\d+) into the calculator$/, function(step, arg) 
 })
 
 When(/^I press add $/, function(step) {
-  var self = this
-  calculator.add(function(err, sum) {
-    self.sum = sum
-    step.done()
-  })
+  step.pending()
 })
 
 Then(/^the result should be (\d*\.)?(\d+) on the screen$/, function(step, arg) {
-  assert.equal(this.sum, arg)
-  step.done()
+  step.pending()
 })
 ```
 
 #### 4: Run and watch it fail
+peanut features/example.feature
 
 ```bash
 Running features
@@ -92,21 +88,28 @@ module.exports = (function() {
   return {
     push: function(arg) {
       args.push(arg)
-    },
-    add: function(callback) {
-      try {
-        var result = 0
-        for (var i=0; i<args.length; i++) result+=args[i]
-        callback(null, result)
-      } catch (err) {
-        callback(err)
-      }
     }
   }
 })()
 ```
 
 #### 6: Run again and see the step pass
+peanut features/example.feature
+
+```bash
+Running features
+
+....
+
+Successful: 2
+Failed: 0
+Pending: 1
+Skipped: 1
+Unimplemented: 0
+```
+
+#### 7: Repeat 2 - 6 until green like a cuke
+peanut features/example.feature
 
 ```bash
 Running features
@@ -120,7 +123,11 @@ Skipped: 0
 Unimplemented: 0
 ```
 
-#### 7: Repeat 1 - 6 until the money runs out
+#### 8: Repeat 1 - 7 until the money runs out
+
+# run all tests
+
+    peanut
 
 # help
 

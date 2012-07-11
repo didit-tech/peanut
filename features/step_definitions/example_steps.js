@@ -6,7 +6,7 @@ Given(/^I have entered (\d*\.)?(\d+) into the calculator$/, function(step, arg) 
   step.done()
 })
 
-When(/^I press add $/, function(step) {
+When(/^I press add$/, function(step) {
   var self = this
   calculator.add(function(err, sum) {
     self.sum = sum
