@@ -43,20 +43,11 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     metavar: "TIME",
     default: 5000
   },
-  port: {
-    help: "Port to run on for web runner (default: 8282)",
-    abbr: "p",
-    metavar: "PORT",
-    default: 8282
-  },
   serial: {
     help: "Run features serially",
     abbr: "s"
   }
 }).parseArgs();
-
-// temporary until we fix web or get rid of it
-__peanut__.options.runner = 'cli';
 
 /**
  * Step definitions.
@@ -97,10 +88,10 @@ try {
  * Formatter.
  */
 
-__peanut__.formatter = require('../lib/formatters/'+__peanut__.options.runner);
+__peanut__.formatter = require('../lib/formatters/cli');
 
 /**
  * Runner.
  */
 
-require('../lib/runner/'+__peanut__.options.runner);
+require('../lib/runner/cli');
