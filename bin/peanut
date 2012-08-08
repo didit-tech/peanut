@@ -42,10 +42,6 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     help: "Test timeout in ms (default: 5000)",
     metavar: "TIME",
     default: 5000
-  },
-  serial: {
-    help: "Run features serially",
-    abbr: "s"
   }
 }).parseArgs();
 
@@ -59,13 +55,6 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
 
 __peanut__.stepDefinitions = [];
 __peanut__.features = {}
-
-/**
- * Globals.
- */
-
-global.assert = require('assert');
-global.should = require('should');
 
 /**
  * Custom error handler.

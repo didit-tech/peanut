@@ -10,7 +10,6 @@ AnyBeforeLastPipe (.|\n(?=\s*\|))
 \s+                                         /* skip whitespace */
 {PyDelim}{AnyBeforePyDelim}+\n\s*{PyDelim}  return 'PYSTRING'
 \|{AnyBeforeLastPipe}+\|                    return 'TABLE'
-^"$serial"                                  return 'SERIAL'
 ^"$timeout "(\d+)                           return 'TIMEOUT'
 ^"@"(\w+)                                   return 'TAGS'
 ^"#".+                                      return 'COMMENT'
@@ -47,9 +46,6 @@ SourceElements
 Feature
   : FEATURE {
       new yy.Feature(yy.file, ['FEATURE', @1.first_line, $1]);
-    }
-  | SERIAL Whitespace Feature {
-      new yy.Serial(yy.file, ['SERIAL_FEATURE', @1.first_line, $1]);
     }
   | TIMEOUT Whitespace Feature {
       new yy.Timeout(yy.file, ['FEATURE_TIMEOUT', @1.first_line, $1]);

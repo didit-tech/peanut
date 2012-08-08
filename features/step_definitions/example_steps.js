@@ -15,6 +15,7 @@ When(/^I press add$/, function(step) {
 })
 
 Then(/^the result should be (\d*\.)?(\d+) on the screen$/, function(step, arg) {
-  assert.equal(this.sum, arg)
+  var self = this
+  self.sum.should.eql(arg)
   step.done()
 })
