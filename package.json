@@ -1,6 +1,6 @@
 {
     "name": "peanut"
-  , "version": "0.6.7"
+  , "version": "0.7.0"
   , "description": "node.js cucumber implementation for the birds"
   , "keywords": ["testing", "bdd", "tdd", "cucumber"]
   , "author": "Didit Tech <development@didit.com>"
