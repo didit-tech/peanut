@@ -81,7 +81,13 @@ __peanut__.envExists = true;
 try {
   fs.statSync(process.cwd()+'/features/support/env.js');
 } catch(err) {
-  __peanut__.envExists = false;
+  // if it's not a JS file, check if it's a CS one
+  try {
+    fs.statSync(process.cwd()+'/features/support/env.coffee');
+    require('coffee-script'); // So we load coffeescript!
+  } catch(err) {
+    __peanut__.envExists = false;
+  }
 }
 
 /**
