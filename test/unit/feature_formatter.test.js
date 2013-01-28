@@ -2,18 +2,17 @@
  * Module dependencies.
  */
 
-var testHelper = require('test_helper');
-var describe = testHelper.describe(exports);
-var formatter = require('brain/format_gherkin');
-var utils = require('utils');
+var testHelper = require('../test_helper');
+var formatter = require('../../lib/brain/format_gherkin');
+var utils = require('../../lib/utils');
 var _ = require('underscore')._;
 
 /**
   * test - unit - feature_formatter.
   */
 
-describe('when formatting an example', function(it) {
-  it('replaces one <argument> for one step', function(test) {
+describe('when formatting an example', function() {
+  it('replaces one <argument> for one step', function(done) {
     var example = { animal: 'elephant' };
     var scenario = {
       steps: [
@@ -23,12 +22,12 @@ describe('when formatting an example', function(it) {
 
     var expected = 'I have an "elephant"';
     formatter.formatExample(example, scenario, function (err, scenario) {
-      scenario.steps[0][2].should.eql(expected);
-      test.finish();
+      expect(scenario.steps[0][2]).to.be(expected);
+      done();
     });
   });
 
-  it('replaces two <arguments> for one step', function(test) {
+  it('replaces two <arguments> for one step', function(done) {
     var example = { animal: 'mouse', food: 'cheese' };
     var scenario = {
       steps: [
@@ -38,12 +37,12 @@ describe('when formatting an example', function(it) {
 
     var expected = 'I have a "mouse" who likes "cheese"';
     formatter.formatExample(example, scenario, function (err, scenario) {
-      scenario.steps[0][2].should.eql(expected);
-      test.finish();
+      expect(scenario.steps[0][2]).to.be(expected);
+      done();
     });
   });
 
-  it('replaces two <arguments> for two steps', function(test) {
+  it('replaces two <arguments> for two steps', function(done) {
     var example = { animal: 'mouse', food: 'cheese' };
     var scenario = {
       steps: [
@@ -53,13 +52,13 @@ describe('when formatting an example', function(it) {
     };
 
     formatter.formatExample(example, scenario, function (err, scenario) {
-      scenario.steps[0][2].should.eql('I have a "mouse"');
-      scenario.steps[1][2].should.eql('It should like "cheese"');
-      test.finish();
+      expect(scenario.steps[0][2]).to.be('I have a "mouse"');
+      expect(scenario.steps[1][2]).to.be('It should like "cheese"');
+      done();
     });
   });
 
-  it('properly replaces <arguments> for multiple examples', function(test) {
+  it('properly replaces <arguments> for multiple examples', function(done) {
     var examples = [
       { animal: 'moose', food: 'ice cream' },
       { animal: 'yak', food: 'shaving cream' }
@@ -74,15 +73,15 @@ describe('when formatting an example', function(it) {
     _(examples).each(function(example) {
       var clonedScenario = utils.deepCopy(scenario);
       formatter.formatExample(example, clonedScenario, function (err, scenario) {
-        scenario.steps[0][2].should.eql('I have a "' + example.animal + '"');
-        scenario.steps[1][2].should.eql('It should like "' + example.food + '"');
+        expect(scenario.steps[0][2]).to.be('I have a "' + example.animal + '"');
+        expect(scenario.steps[1][2]).to.be('It should like "' + example.food + '"');
       });
     });
 
-    test.finish();
+    done();
   });
 
-  it('replaces two <arguments> for a pystring step', function(test) {
+  it('replaces two <arguments> for a pystring step', function(done) {
     var example = { animal: 'cat', food: 'mice' };
     var scenario = {
       steps: [
@@ -95,12 +94,12 @@ describe('when formatting an example', function(it) {
 
     formatter.formatExample(example, scenario, function (err, scenario) {
       var replacedStepArg = '     my cat really likes to munch on mice.\n    ';
-      scenario.stepArgs['4'].should.eql(replacedStepArg);
-      test.finish();
+      expect(scenario.stepArgs['4']).to.be(replacedStepArg);
+      done();
     });
   });
 
-  it('replaces two <arguments> for a table step', function(test) {
+  it('replaces two <arguments> for a table step', function(done) {
     var example = { animal: 'person', food: 'horse' };
     var scenario = {
       steps: [
@@ -115,90 +114,91 @@ describe('when formatting an example', function(it) {
     };
 
     formatter.formatExample(example, scenario, function (err, scenario) {
-      scenario.stepArgs['4'][0][0].should.eql('animal')
-      scenario.stepArgs['4'][0][1].should.eql('food');
-      scenario.stepArgs['4'][1][0].should.eql('person')
-      scenario.stepArgs['4'][1][1].should.eql('horse');
-      test.finish();
+      expect(scenario.stepArgs['4'][0][0]).to.be('animal');
+      expect(scenario.stepArgs['4'][0][1]).to.be('food');
+      expect(scenario.stepArgs['4'][1][0]).to.be('person');
+      expect(scenario.stepArgs['4'][1][1]).to.be('horse');
+      done();
     });
   });
 });
 
-describe('when formatting a step', function(it) {
+describe('when formatting a step', function() {
   var file = { feature: { background: {}}};
 
-  it("should replace text between quotes with a string argument", function(test) {
-    test.stub(utils, 'selectStepDefinition').returns({
+  it("should replace text between quotes with a string argument", function(done) {
+    sinon.stub(utils, 'selectStepDefinition').returns({
       pattern : /^the "([^"]*?)" is something$/
     });
 
-    step = ['Given', 4, 'the "argument" is something'];
+    var step = ['Given', 4, 'the "argument" is something'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.include('argument');
-    test.finish();
+    expect(formattedStep.stepDefinition.args).to.contain('argument');
+    done();
   });
 
-  it("should replace text between quotes with a string containing a single quote", function(test) {
-    test.stub(utils, 'selectStepDefinition').returns({
+  it("should replace text between quotes with a string containing a single quote", function(done) {
+    sinon.stub(utils, 'selectStepDefinition').returns({
       pattern : /^the "([^"]*?)" is tasty$/
     });
 
-    step = ['Given', 4, 'the "argument\'s pancake" is tasty'];
+    var step = ['Given', 4, 'the "argument\'s pancake" is tasty'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.include("argument's pancake");
-    test.finish();
+    expect(formattedStep.stepDefinition.args).to.contain("argument's pancake");
+    done();
   });
 
-  it("replaces a number with an argument", function(test) {
-    test.stub(utils, 'selectStepDefinition').returns({
+  it("replaces a number with an argument", function(done) {
+    sinon.stub(utils, 'selectStepDefinition').returns({
       pattern : /^the number (\d+) is everything$/
     });
 
-    step = ['Given', 4, 'the number 42 is everything'];
+    var step = ['Given', 4, 'the number 42 is everything'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.include(42);
-    test.finish();
+    expect(formattedStep.stepDefinition.args).to.contain(42);
+    done();
   });
 
-  it("replaces two types of arguments correctly", function(test) {
-    test.stub(utils, 'selectStepDefinition').returns({
+  it("replaces two types of arguments correctly", function(done) {
+    sinon.stub(utils, 'selectStepDefinition').returns({
       pattern : /^the number (\d+) is "([^"]*?)"$/
     });
 
-    step = ['Given', 4, 'the number 42 is "everything"'];
+    var step = ['Given', 4, 'the number 42 is "everything"'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.include(42);
-    formattedStep.stepDefinition.args.should.include('everything');
-    test.finish();
+    expect(formattedStep.stepDefinition.args).to.contain(42);
+    expect(formattedStep.stepDefinition.args).to.contain('everything');
+    done();
   });
 
-  it("replaces multiple numbers correctly", function(test) {
-    test.stub(utils, 'selectStepDefinition').returns({
+  it("replaces multiple numbers correctly", function(done) {
+    sinon.stub(utils, 'selectStepDefinition').returns({
       pattern : /^the number (\d+) is greater than (\d+)$/
     });
 
-    step = ['Given', 4, 'the number 42 is greater than 23'];
+    var step = ['Given', 4, 'the number 42 is greater than 23'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.pattern.should.eql('the number (\\d*\\.)?(\\d+) is greater than (\\d*\\.)?(\\d+)')
-    formattedStep.stepDefinition.args.should.include(42);
-    formattedStep.stepDefinition.args.should.include(23);
-    test.finish();
+    expect(formattedStep.pattern).to.be('the number (\\d*\\.)?(\\d+) is greater than (\\d*\\.)?(\\d+)')
+    expect(formattedStep.stepDefinition.args).to.contain(42);
+    expect(formattedStep.stepDefinition.args).to.contain(23);
+    done();
   });
 
-  it("replaces floats", function(test) {
-    test.stub(utils, 'selectStepDefinition').returns({
+  it("replaces floats", function(done) {
+    sinon.stub(utils, 'selectStepDefinition').returns({
       pattern: /^I have <exp> amount of money$/
     });
 
-    step = ['Given', 4, 'I have 25.34 amount of money'];
+    var step = ['Given', 4, 'I have 25.34 amount of money'];
 
     var formattedStep = formatter.formatStep(step, {stepArgs: {}}, file);
-    formattedStep.stepDefinition.args.should.include(25.34);
-    test.finish();
+    expect(formattedStep.stepDefinition.args).to.contain(25.34);
+    done();
   });
 });
+

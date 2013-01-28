@@ -4,35 +4,15 @@
 
 global.assert = require('assert');
 global.should = require('should');
-var sinon = require('sinon');
-
-module.exports = {
-  describe: function(exports) {
-    var self = this;
-    return function(subject, callback) {
-      var testContext = {};
-      testContext.subject = subject;
-      callback(self.it(exports, testContext));
-    };
-  },
-  it: function(exports, testContext) {
-    return function(statement, callback) {
-      exports[testContext.subject + ' ' + statement] = function(done) {
-        var sandbox = sinon.sandbox.create();
-        sandbox.finish = function() {
-          sandbox.restore();
-          done();
-        };
-        callback(sandbox);
-      };
-    };
-  }
-};
+global.expect = require('expect.js');
+var sinon = global.sinon = require('sinon');
+require('sinon-mocha').enhance(sinon);
 
 /**
  * Terminate process on uncaught exception
  */
 
 process.on('uncaughtException', function(err) {
+  console.err(err);
   process.exit(1);
 });
