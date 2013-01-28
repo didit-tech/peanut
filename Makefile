@@ -7,7 +7,8 @@ default: all
 all: unit peanut
 
 unit:
-	@NODE_PATH=test:lib expresso -t 250 -I test -I lib -s test/unit/*.test.js
+	@NODE_ENV=test ./node_modules/.bin/mocha \
+		test/unit
 
 peanut:
 	bin/peanut -s

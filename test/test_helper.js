@@ -13,6 +13,6 @@ require('sinon-mocha').enhance(sinon);
  */
 
 process.on('uncaughtException', function(err) {
-  console.err(err);
+  //console.err(err);
   process.exit(1);
 });
