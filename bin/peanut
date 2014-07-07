@@ -27,6 +27,13 @@ __peanut__.options = nomnom.scriptName('peanut').opts({
     position: 0,
     list: true
   },
+  step_definition_path: {
+    help: "Your step definitions path (default: features)",
+    default: ["features"],
+    abbr: "s",
+    position: 1,
+    list: true
+  },
   output: {
     help: "Specify a file to output JUnit compatible xml",
     abbr: "o",
@@ -75,7 +82,8 @@ try {
   __peanut__.envPath = path + env;
 } catch(err) {
   try {
-    env = '/features' + env;
+    path = process.cwd() + '/' +
+    __peanut__.options.path[0].split("/")[0];
     fs.statSync(path + env);
     __peanut__.envPath = path + env;
   } catch(err) {
